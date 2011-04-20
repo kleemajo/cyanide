@@ -39,6 +39,11 @@ void* gBootBaseaddr = NULL;
 int cout_count = 0;
 
 void* find_printf() {
+#ifdef S5L8720X
+	// calling default_block_write and trying to pull printf off of the stack
+	// breaks miserably on the S5L8720. Instead, just return a hardcoded value.
+	return (void*)TARGET_PRINTF;
+#endif
 	int i = 0;
 	int j = 0;
 	unsigned int sp;
